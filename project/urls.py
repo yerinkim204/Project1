@@ -24,7 +24,6 @@ urlpatterns = [
     path('',views.home, name='home'),
     path('comments/', include('comments.urls')), 
     path('books/', include('books.urls')),
-
     path('create/', views.create, name='create'),
 
 ]
