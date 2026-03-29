@@ -1,3 +1,4 @@
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -82,7 +83,7 @@
           <div class="col-md-10 col-lg-8 col-xl-7">
             <div class="post-heading">
               <h1>게시글 목록</h1>
-              <p>사용자가 작성한 게시글 전체 목록 확인하기</p>
+              <p>전체</p>
             </div>
           </div>
         </div>
@@ -92,21 +93,23 @@
     <article class="mb-4">
       <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
-          <!-- 세션 중 수정할 부분 여기서부터! -->
+          <!-- 수정할 부분 여기서부터! -->
 
           <!-- 게시글 하나의 preview -->
-           {% for post in posts %}
-          <div class="post-preview">
-            <a href="{% url 'comment_detail' post.id %}">
-              <p>{{posts}}</p>
-              <h2 class="post-title">{{ post.title }}</h2>
-              <h3 class="post-subtitle">{{ post.body }}</h3>
-            </a>
-            <p class="post-meta">{{ post.created_at }}</p>
-          </div>
+          {% for post in posts %}
+            <div class="post-preview">
+              <a href="{% url 'comment_detail' post.id %}">
+                
+                <h2 class="post-title">{{ post.title }}</h2>
+                <h3 class="post-subtitle">{{ post.body|truncatechars:100 }}</h3>
+              </a>
+              
+              <p class="post-meta">
+                Posted on {{ post.created_at|date:"F d, Y" }}
+              </p>
+            </div>
 
-          <!-- 구분선 -->
-          <hr class="my-4" />
+            <hr class="my-4" />
           {% endfor %}
         </div>
       </div>

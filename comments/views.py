@@ -2,9 +2,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from blog.models import Post
 from blog.forms import PostModelForm
 
-# Create your views here.
-def comment(request):
-    return render(request, 'comment.html')
 
 #게시글 목록 조회
 def comment_list(request):
