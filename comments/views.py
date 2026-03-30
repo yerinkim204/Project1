@@ -31,3 +31,6 @@ def comment_delete(request, id):
     post = Post.objects.get(pk=id)
     post.delete()
     return redirect('comment_list')
+
+def resume_view(request):
+    return render(request, "resume.html")
