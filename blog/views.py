@@ -6,8 +6,8 @@ def home(request):
 		return render(request, "index.html")
 
 def create(request):
-    if request.method == 'POST':
-        form = PostModelForm(request.POST)
+    if request.method == 'POST'  or request.method == 'FILES':
+        form = PostModelForm(request.POST, request.FILES)
         if form.is_valid(): 
             form.save()  
             return redirect('home') 
