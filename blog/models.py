@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 
 class Post(models.Model):
     title = models.CharField(verbose_name="제목", max_length=128)
@@ -7,6 +7,7 @@ class Post(models.Model):
     created_at = models.DateTimeField(verbose_name="작성일", auto_now_add=True)
     photo = models.ImageField(verbose_name="이미지", 
 							  blank=True, null=True, upload_to='blog_photo')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     def __str__(self):  
         return self.title
@@ -19,5 +20,6 @@ class Reply(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     post = models.ForeignKey(Post, on_delete=models.CASCADE,
 								  related_name='replies')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     def __str__(self): 
         return self.content

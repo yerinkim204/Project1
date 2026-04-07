@@ -43,7 +43,7 @@
                 <div class="col-md-10 col-lg-8 col-xl-7">
 
                     <!-- 여기부터 댓글 수정 Form -->
-                    <form action="" method="POST">
+                    <form action="{% url 'update_reply' post_id com_id %}" method="POST">
                         {% csrf_token %}
                         {{ reply_form.as_p }}
                         <input type="submit" value="수정하기" />

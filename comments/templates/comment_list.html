@@ -101,6 +101,7 @@
               <a href="{% url 'comment_detail' post.id %}" class="text-decoration-none text-dark">
                 
                 <h2 class="post-title">{{ post.title }}</h2>
+                <h6 class="post-author">작성자 : {{ post.author }}</h6>
                 <h3 class="post-subtitle">{{ post.body|truncatechars:100 }}</h3>
               </a>
               

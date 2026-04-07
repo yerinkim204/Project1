@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from blog.models import Post, Reply
 from blog.forms import PostModelForm, ReplyForm
 from django.core.paginator import Paginator
-
+from django.contrib.auth.decorators import login_required
 
 #게시글 목록 조회
 def comment_list(request):
@@ -47,12 +47,15 @@ def resume_view(request):
 
 
 # 댓글 작성
+
 def create_reply(request, id):
     filled_form = ReplyForm(request.POST)
     if filled_form.is_valid():
         finished_form = filled_form.save(commit=False)
         finished_form.post = get_object_or_404(Post, pk=id)
+        finished_form.author = request.user
         finished_form.save()
+
     return redirect('comment_detail', id)
 
 # 댓글 수정
@@ -67,10 +70,11 @@ def update_reply(request, post_id, com_id):
             
     else:
         reply_form = ReplyForm(instance=reply)
-        context = {'reply_form': reply_form}
+        context = {'reply_form': reply_form,'post_id': post_id,
+        'com_id': com_id}
         return render(request, 'reply_update.html', context)
     
-
+# 댓글 삭제
 def delete_reply(request, post_id, com_id):
     reply = Reply.objects.get(id=com_id)
     reply.delete()

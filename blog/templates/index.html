@@ -35,6 +35,17 @@
                     </div>
                 </div>
             </nav>
+
+
+            <!-- 회원가입 / 로그인 -->
+            {% if user.is_authenticated %}
+            <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary" href="{% url 'accounts:logout' %}">Logout</a></div>
+            {% else %}
+            <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary" href="{% url 'accounts:signup' %}">Sign Up</a></div>
+            <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary" href="{% url 'accounts:login' %}">Login</a></div>
+            {% endif %}
+            <!--회원가입 / 로그인 끝-->
+
             <!-- Header-->
             <header class="py-5">
                 <div class="container px-5 pb-5">
@@ -43,7 +54,12 @@
                             <!-- Header text content-->
                             <div class="text-center text-xxl-start">
                                 <div class="badge bg-gradient-primary-to-secondary text-white mb-4"><div class="text-uppercase">Read &middot; Write &middot; Resonate</div></div>
-                                <div class="fs-3 fw-light text-muted">Everything about the world</div>
+                                {% if user.is_authenticated %}
+                                <div class="fs-3 fw-light text-muted">Write your thoughts</div>
+                                {%else %}
+                                <div class="fs-3 fw-light text-muted">Login to write your thoughts</div>
+                                {% endif %}
+                                
                                 <h1 class="display-3 fw-bolder mb-5"><span class="text-gradient d-inline">Share your Books</span></h1>
                                 <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xxl-start mb-3">
                                     <a class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder" href="{% url 'comment_list' %}">Review List</a>
@@ -198,7 +214,9 @@
                 </div>
             </section>
         </main>
+
         <!-- Footer-->
+
         <footer class="bg-white py-4 mt-auto">
             <div class="container px-5">
                 <div class="row align-items-center justify-content-between flex-column flex-sm-row">
